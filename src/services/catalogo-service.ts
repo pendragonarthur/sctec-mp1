@@ -4,27 +4,41 @@ export class CatalogoPokemon {
     private pokemons: PokemonModel[] = [];
 
     public adicionar(pokemon: PokemonModel): boolean{
+        const pokemonExists = this.pokemons.some((p) => p.id === pokemon.id);
+
+        if(pokemonExists){
+            console.log(`[AVISO] Pokémon ${pokemon.name} já existe no catálogo.`);
+            return false;
+        }
+        
         this.pokemons.push(pokemon);
-        console.log(`[OK] Pokémon adicionado ao catálogo com sucesso. `);
+
         return true;
     }
 
-    public listar(): PokemonModel[] | null { 
+    public listar(): PokemonModel[] { 
         const pokemons = [...this.pokemons];
+        
         return pokemons;
     } 
 
-    public remover(id?: number): boolean { 
+    public listarPokemon(name: string): PokemonModel | undefined { 
+        const pokemonExists = this.pokemons.some((p) => p.name === name);
+
+        if (!pokemonExists) return undefined;
+
+        const pokemon = this.pokemons.find((p) => p.name === name);
+
+        return pokemon;
+    }
+
+    public remover(id: number): boolean { 
         const pokemonExists = this.pokemons.some((p)=> p.id === id);
         
-        if(!pokemonExists){
-            console.log(`[AVISO] Pokémon de ID ${id} não encontrado.`);
-            console.log(`[AVISO] Não foi possível remover Pokémon do catálogo.`)
-            return false;
-        }        
+        if (!pokemonExists) return false;
 
-        this.pokemons.filter((p)=> p.id !== id);
-        console.log(`[OK] Pokémon de ID ${id} removido do catálogo.`);
+        this.pokemons = this.pokemons.filter((p)=> p.id !== id);
+
         return true;
     }
 }

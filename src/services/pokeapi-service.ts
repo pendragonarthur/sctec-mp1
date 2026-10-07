@@ -4,12 +4,12 @@ import type { PokemonModel } from "../models/pokemon-model.ts";
 export class PokeApiService { 
     private readonly baseUrl = `https://pokeapi.co/api/v2/pokemon`
 
-    public async getPokemonByName(name: string): Promise<PokemonModel | null>  { 
+    public async buscarPokemon(name: string): Promise<PokemonModel | null>  { 
         try {
             const res = await fetch(`${this.baseUrl}/${name.trim().toLowerCase()}`);
 
             if (!res.ok){
-                console.log(`[AVISO] Falha no servidor.`);
+                console.log(`[AVISO] Falha ao buscar Pokémon. Erro: ${res.status}`);
                 return null;
             };
 

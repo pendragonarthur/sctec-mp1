@@ -10,7 +10,14 @@ async function main(): Promise<void> {
     console.log('---------- Iniciando Pokedex Lite ----------');
 
     await controller.adicionarPokemon("pikachu");
+    await controller.adicionarPokemon("charmander");
+    await controller.adicionarPokemon("pikachu");
+    await controller.adicionarPokemon("pikaccchu");
     await controller.listarPokemons();
+    await controller.removerPokemon(25);
+    await controller.listarPokemons();
+    await controller.listarPokemonPorNome("charmander");
+
 }
 
 main();
